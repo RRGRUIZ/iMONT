@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iMONT - Accesorios Apple</title>
+    
+    <!-- Favicon - Icono de la pestaña -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍎</text></svg>">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZAAAAVxJREFUWEftlrtKA0EUhv9JJgVCCkGSgoqNlYWNhWAhibPQRiS20RfQwkYbCxtBEWyysSksBJsgWFiIhR0iNmKjIBLQSm3Sx27mMs7uzs6mUMMPljn/c+Zyzsx0cVyGcA/+h4AuMaaBsNt8o5vv/weB08LkFBiC0aYFyHxQhDcD7jlgwul0p4CuBdBb6R6T8lqH7voA1usEdDuAGsKbAdcFcJKAqk1l2oC0BHSTgH4T0C0N2qUAJiUgtoKAPoVYrRscEOBWAawjIYYW8x3iAUiMhA0VMmR3y4Cdc7OhAX2XEA/AsAH1FmC6B4GVAfsjQK6Tq09uKqjBf7EGqL3FXbCLNGx8qMprwazDGhC/08SnGABWgUcC6JYAb1gDEvAgAFkM0IhPQwNA2Th9FmAPF2gseG2jHYH7C9AGV2gy+BORkRGAeH03Zwd/KdKg30Bo+V8EBrL5gIB4ezdnB3/p8wLB1A0MIPI3R+92Iu5/2c1e4i/1Fw+LL5SnSgAAAABJRU5ErkJggg==">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-apple-alt"></i>
+                <span>iMONT</span>
+            </div>
+            
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar productos, combos...">
+                    <button class="search-clear" id="searchClear" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <button class="cart-toggle" id="cartToggle" aria-label="Carrito">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegación -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-link active" data-section="productos">Productos</a>
+            <a href="#" class="nav-link" data-section="combos">Combos</a>
+            <a href="#" class="nav-link" data-section="pedidos" id="pedidosNav">📦 Mis Pedidos</a>
+        </div>
+    </nav>
+
+    <!-- Banner Principal -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Accesorios Premium para tu Apple</h1>
+            <p>Calidad y estilo en cada detalle</p>
+            <div class="hero-badge" id="envioBanner">
+                <i class="fas fa-truck"></i>
+                <span>🚚 Envío Gratis en Montelíbano, Córdoba</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Filtros -->
+            <div class="filters" id="filtersSection">
+                <div class="filter-group">
+                    <label>Categorías</label>
+                    <div class="filter-options">
+                        <button class="filter-btn active" data-filter="all">Todos</button>
+                        <button class="filter-btn" data-filter="fundas">Fundas</button>
+                        <button class="filter-btn" data-filter="cargadores">Cargadores</button>
+                        <button class="filter-btn" data-filter="audifonos">Audífonos</button>
+                        <button class="filter-btn" data-filter="powerbank">PowerBank</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid de Productos -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Los productos se cargarán dinámicamente -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Producto -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del Carrito Mejorado -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content cart-modal">
+            <span class="modal-close" id="cartClose">&times;</span>
+            <h2>🛒 Carrito de Compras</h2>
+            
+            <div class="cart-controls">
+                <label class="select-all">
+                    <input type="checkbox" id="selectAll">
+                    <span>Seleccionar todos</span>
+                </label>
+                <button class="btn-delete-all" id="deleteSelected" disabled>
+                    <i class="fas fa-trash"></i> Eliminar seleccionados
+                </button>
+            </div>
+            
+            <div id="cartContent">
+                <!-- Contenido del carrito -->
+            </div>
+            
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-resumen">
+                    <div class="cart-total">
+                        <span>Total seleccionados:</span>
+                        <span id="selectedTotal">$0</span>
+                    </div>
+                    <div class="cart-envio-info">
+                        <i class="fas fa-truck"></i>
+                        <span id="envioMensaje">Envío gratis en Montelíbano</span>
+                    </div>
+                </div>
+                <button class="cart-checkout" id="realizarPedido">
+                    <i class="fas fa-check-circle"></i> Realizar Pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Datos de Envío -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content checkout-modal">
+            <span class="modal-close" id="checkoutClose">&times;</span>
+            <h2>📋 Datos de Envío</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Completa tus datos para procesar el pedido</p>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label for="nombreCompleto">Nombre Completo *</label>
+                    <input type="text" id="nombreCompleto" required placeholder="Ej: Juan Pérez">
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefono">Teléfono *</label>
+                    <input type="tel" id="telefono" required placeholder="Ej: 3001234567">
+                </div>
+                
+                <div class="form-group">
+                    <label for="direccion">Dirección Completa *</label>
+                    <textarea id="direccion" required placeholder="Ej: Calle 10 # 5-20, Barrio Centro"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ciudad">Ciudad / Municipio *</label>
+                    <input type="text" id="ciudad" required placeholder="Ej: Montelíbano">
+                </div>
+                
+                <div class="form-group">
+                    <label for="departamento">Departamento *</label>
+                    <input type="text" id="departamento" required placeholder="Ej: Córdoba">
+                </div>
+                
+                <div class="form-group">
+                    <label for="instrucciones">Instrucciones de Entrega</label>
+                    <input type="text" id="instrucciones" placeholder="Ej: Casa con portón rojo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="metodoPago">Método de Pago *</label>
+                    <select id="metodoPago" required>
+                        <option value="">Selecciona un método</option>
+                        <option value="contraentrega">Contraentrega (Efectivo)</option>
+                        <option value="nequi">Nequi</option>
+                        <option value="bancolombia">Bancolombia</option>
+                        <option value="daviplata">Daviplata</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="referenciaPagoGroup" style="display: none;">
+                    <label for="referenciaPago">Número de Referencia / Comprobante</label>
+                    <input type="text" id="referenciaPago" placeholder="Ingresa el número de referencia">
+                </div>
+                
+                <div id="envioCheckoutInfo" class="envio-checkout-info">
+                    <!-- Se mostrará información del envío -->
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelarCheckout">Cancelar</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-check-circle"></i> Confirmar Pedido
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal del Chatbot WhatsApp -->
+    <div class="modal" id="chatbotModal">
+        <div class="modal-content chatbot-modal">
+            <span class="modal-close" id="chatbotClose">&times;</span>
+            <div class="chatbot-header">
+                <i class="fab fa-whatsapp" style="font-size: 28px; color: #25D366;"></i>
+                <h2>Chatbot iMONT</h2>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chatbot-message bot">
+                    <div class="message-content">
+                        <p>👋 ¡Hola! Soy el asistente de iMONT.</p>
+                        <p>He recibido tu pedido. Por favor, confirma los siguientes datos:</p>
+                    </div>
+                </div>
+                <div class="chatbot-message bot" id="resumenPedido">
+                    <!-- Se cargará el resumen del pedido -->
+                </div>
+                <div class="chatbot-message bot" id="mensajeEnvio">
+                    <!-- Mensaje de envío -->
+                </div>
+                <div class="chatbot-message bot">
+                    <div class="message-content">
+                        <p style="font-weight: 600;">¿Confirmas tu pedido?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-actions">
+                <button class="btn-primary" id="confirmarPedido">
+                    <i class="fas fa-check"></i> Confirmar Pedido
+                </button>
+                <button class="btn-secondary" id="modificarPedido">
+                    <i class="fas fa-edit"></i> Modificar Pedido
+                </button>
+                <button class="btn-secondary" id="cancelarChatbot">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+            
+            <div class="chatbot-info">
+                <p style="font-size: 12px; color: var(--text-secondary); text-align: center;">
+                    📱 El vendedor te contactará al número que proporcionaste
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación de Pedido -->
+    <div class="modal" id="confirmacionModal">
+        <div class="modal-content confirmacion-modal">
+            <div style="text-align: center; padding: 20px 0;">
+                <i class="fas fa-check-circle" style="font-size: 60px; color: #34c759; margin-bottom: 20px;"></i>
+                <h2 style="margin-bottom: 10px;">¡Pedido Confirmado! 🎉</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">Tu pedido ha sido enviado al vendedor</p>
+                <div style="background: var(--bg-secondary); padding: 20px; border-radius: 12px; text-align: left; margin: 20px 0;">
+                    <p><strong>Número de Pedido:</strong> <span id="numeroPedido"></span></p>
+                    <p><strong>Total:</strong> <span id="totalPedido"></span></p>
+                    <p><strong>Dirección:</strong> <span id="direccionPedido"></span></p>
+                    <p><strong>Método de Pago:</strong> <span id="pagoPedido"></span></p>
+                    <p><strong>Envío:</strong> <span id="envioPedido"></span></p>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 14px;">
+                    📱 El vendedor te contactará al <span id="telefonoPedido"></span>
+                </p>
+                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
+                    <button class="btn-secondary" onclick="location.reload()">
+                        <i class="fas fa-home"></i> Volver a la tienda
+                    </button>
+                    <button class="btn-primary" onclick="verMisPedidos()">
+                        <i class="fas fa-box"></i> Ver mis pedidos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Mis Pedidos -->
+    <div class="modal" id="pedidosModal">
+        <div class="modal-content pedidos-modal">
+            <span class="modal-close" id="pedidosClose">&times;</span>
+            <h2>📦 Mis Pedidos</h2>
+            <div id="pedidosContent">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>iMONT</h3>
+                <p>Accesorios premium para dispositivos Apple</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p><i class="fas fa-whatsapp"></i> WhatsApp: +57 300 000 0000</p>
+                <p><i class="fas fa-envelope"></i> info@imont.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>Envíos</h4>
+                <p><i class="fas fa-truck"></i> Envío gratis en Montelíbano</p>
+                <p><i class="fas fa-clock"></i> Entrega en 24-48 horas</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 iMONT. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
